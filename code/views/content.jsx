@@ -1,88 +1,72 @@
-import React from 'react';
+import React, {Component} from 'react';
+import SingleView from './singleView.jsx';
+import DetailView from './detailView.jsx';
 
-export default class Content extends React.Component {
+export default class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
-      per_page: 25,
-      state: 'closed'
+      currentIssues: null,
+      isExpanded: false
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    const {page, per_page, state} = this.state;
-    const url = `https://api.github.com/repos/rails/rails/issues?page=${page}&per_page=${per_page}&state=${state}`;
+    const {repoLink, pageIndex, issuesPerPage, issueState} = this.props;
+    const url = `https://api.github.com/repos/${repoLink}/issues?page=${pageIndex}&per_page=${issuesPerPage}&state=${issueState}`;
 
     fetch(url, {
       method: 'get'
     }).then(response => {
-      console.log(response);
       if (response.ok) {
         response.json().then(data => {
-          // console.log(data);
           this.setState({
             currentIssues: data
           });
         });
       }
-    }).catch( err => {
+    }).catch(err => {
       console.log('Error', err);
     });
   }
 
+  handleClick() {
+    console.log('handleClick for singleView');
+    const {isExpanded} = this.state;
+    this.setState({
+      isExpanded: !isExpanded
+    });
+  }
+
   render() {
-    const {currentIssues} = this.state;
-    console.log('currentIssues');
-    console.log(currentIssues);
+    let issues;
+    const {currentIssues, isExpanded} = this.state;
 
-    if (currentIssues || 1) {
+    if (currentIssues) {
+      issues = currentIssues.map((issue, index)=> {
+        let cls = index % 2 === 0 ? '': 'list-item-even';
 
+        return (
+          <div key={index}>
+            <SingleView
+              className={`list-group-item ${cls}`}
+              data={issue}
+              onAction={this.handleClick}
+            />
+            {isExpanded && (<DetailView className="bounce-in" />)}
+          </div>
+         )
+      });
     }
 
-    const content = (
-       <div className="row">
-        <div className="col-md-4">
-          <h2>
-            Heading
-          </h2>
-          <p>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-          </p>
-          <p>
-            <a className="btn" href="#">View details »</a>
-          </p>
-        </div>
-        <div className="col-md-4">
-          <h2>
-            Heading
-          </h2>
-          <p>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-          </p>
-          <p>
-            <a className="btn" href="#">View details »</a>
-          </p>
-        </div>
-        <div className="col-md-4">
-          <h2>
-            Heading
-          </h2>
-          <p>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-          </p>
-          <p>
-            <a className="btn" href="#">View details »</a>
-          </p>
-        </div>
-      </div>
-    )
-
     return (
-      <div className="header">
-        <h1>Hello</h1>
-        {/*{currentIssues}*/}
-        {content}
+      <div className="content">
+        <h1>rails/rails repo issues</h1>
+        <ul className="list-group">
+          {issues}
+        </ul>
       </div>
     )
   }

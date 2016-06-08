@@ -13,8 +13,10 @@ export default class Main extends Component {
     this.handleFooterPagenationChange = this.handleFooterPagenationChange.bind(this);
 
     this.state = {
+      repoLink: 'rails/rails',
       pageIndex: 1,
       issueState: 'open',
+      issuesPerPage: 25,
       pageTotal: 10
     };
   }
@@ -45,15 +47,20 @@ export default class Main extends Component {
   }
 
   render() {
-    const {pageTotal} = this.state;
+    const {repoLink, pageIndex, issueState, issuesPerPage, pageTotal} = this.state;
 
     return (
       <div>
         <Header
-          issueState={this.state.issueState}
+          issueState={issueState}
           onAction={this.handleHeaderStateChange}
         />
-        <Content />
+        <Content
+          repoLink={repoLink}
+          issueState={issueState}
+          pageIndex={pageIndex}
+          issuesPerPage={issuesPerPage}
+        />
         <Footer
           pageTotal={pageTotal}
           onAction={this.handleFooterPagenationChange}
