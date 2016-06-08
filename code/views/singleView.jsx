@@ -1,18 +1,25 @@
 import React, {Component, PropTypes} from 'react';
+import DetailView from './detailView.jsx';
 
 export default class SingleView extends Component {
   static propTypes = {
-    data:  PropTypes.object.isRequired,
-    onAction: PropTypes.func.isRequired
+    data:  PropTypes.object.isRequired
   };
 
   constructor(props) {
     super(props);
+    this.state = {isExpanded: false};
+
     this.handleClick = this.handleClick.bind(this);
   }
 
+
   handleClick() {
-    this.props.onAction();
+    console.log('handleClick for singleView');
+    const {isExpanded} = this.state;
+    this.setState({
+      isExpanded: !isExpanded
+    });
   }
 
   render() {
@@ -75,36 +82,43 @@ export default class SingleView extends Component {
       }
     }
 
+    const {isExpanded} = this.state;
+
     return (
-      <li className={this.props.className}>
-        <div className="media">
-          <a href="#" className="pull-left">
-            <img alt="Github User Profile" src={avatar_url} className="media-object avatar" />
-          </a>
-          <div className="media-body">
-            <h4 className="media-heading">
-              {login}
-            </h4>
+      <div>
+        <li className={this.props.className}>
+          <div className="media">
+            <a href="#" className="pull-left">
+              <img alt="Github User Profile" src={avatar_url} className="media-object avatar" />
+            </a>
+            <div className="media-body">
+              <h4 className="media-heading">
+                {login}
+              </h4>
+            </div>
           </div>
-        </div>
 
-        <div className="list-group list-inline">
-          Issue labels: {labelList}
-        </div>
+          <div className="list-group list-inline">
+            Issue labels: {labelList}
+          </div>
 
-        <h4>Summary (140 Characters)</h4>
-        <p className="para-140-characters">
-          {message}
-        </p>
+          <h4>Summary (140 Characters)</h4>
+          <p className="para-140-characters">
+            {message}
+          </p>
 
-        <button
-          type="button"
-          className="btn btn-primary btn-sm"
-          onClick={this.handleClick}
-        >
-          View Issue Detail
-        </button>
-      </li>
+          {!isExpanded && (
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={this.handleClick}
+            >
+              View Issue Detail
+            </button>
+          )}
+        </li>
+        {isExpanded && (<DetailView className="list-group-item bounce-in" onClick={this.handleClick} />)}
+      </div>
     );
   }
 }

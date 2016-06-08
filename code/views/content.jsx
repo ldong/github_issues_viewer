@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import SingleView from './singleView.jsx';
-import DetailView from './detailView.jsx';
 
 export default class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIssues: null,
-      isExpanded: false
+      currentIssues: null
     };
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -21,22 +17,14 @@ export default class Content extends Component {
       method: 'get'
     }).then(response => {
       if (response.ok) {
-        response.json().then(data => {
+        response.json().then(currentIssues => {
           this.setState({
-            currentIssues: data
+            currentIssues
           });
         });
       }
     }).catch(err => {
       console.log('Error', err);
-    });
-  }
-
-  handleClick() {
-    console.log('handleClick for singleView');
-    const {isExpanded} = this.state;
-    this.setState({
-      isExpanded: !isExpanded
     });
   }
 
@@ -49,14 +37,12 @@ export default class Content extends Component {
         let cls = index % 2 === 0 ? '': 'list-item-even';
 
         return (
-          <div key={index}>
-            <SingleView
-              className={`list-group-item ${cls}`}
-              data={issue}
-              onAction={this.handleClick}
-            />
-            {isExpanded && (<DetailView className="bounce-in" />)}
-          </div>
+          <SingleView
+            key={index}
+            className={`list-group-item ${cls}`}
+            data={issue}
+            onAction={this.handleClick}
+          />
          )
       });
     }
