@@ -5,7 +5,8 @@
 ```
 npm install
 npm install webpack-dev-server@1.12.1 -g
-webpack-dev-server --progress --colors
+npm start
 ```
 
-Now open [http://localhost:8080/](http://localhost:8080/)
+Now open [http://localhost:8080/](http://localhost:8080/), or with [auto refresh](http://localhost:8080/webpack-dev-server/)
+
