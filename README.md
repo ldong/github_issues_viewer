@@ -7,7 +7,7 @@ Date: 6/10/2016
 ## Tech Stack
 
 1. Implemented using React
-2. Bootstrap were used for CSS Styling and responsiveness. After all, bootstrap is from Twitter which also the company that I'm applying for.
+2. Bootstrap were used for CSS Styling and responsiveness.
 
 ## Thoughts
 By going over the [github developer APIs](https://developer.github.com/v3/issues/#list-issues-for-a-repository)
