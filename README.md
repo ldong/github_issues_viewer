@@ -63,6 +63,8 @@ I chose 1) since it makes sense and ethical.
 No React-router nor flux libraries were used. Just used plain ES6. Maybe I should use React-router for
 keeping track of which pageIndex, issue state, and repo's issues were browsed. But I think for simple app, this is sufficient.
 
+## TODO
+1. Implement Markdown render issue body
 
 # Reference
 
