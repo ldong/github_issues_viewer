@@ -10,10 +10,11 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
     this.handleHeaderStateChange = this.handleHeaderStateChange.bind(this);
+    this.handleHeaderRepoNameChange = this.handleHeaderRepoNameChange.bind(this);
     this.handleFooterPagenationChange = this.handleFooterPagenationChange.bind(this);
 
     this.state = {
-      repoLink: 'rails/rails',
+      repoName: 'rails/rails',
       pageIndex: 1,
       issueState: 'open',
       issuesPerPage: 25,
@@ -21,8 +22,11 @@ export default class Main extends Component {
     };
   }
 
-  componentDidMount() {
-
+  handleHeaderRepoNameChange(repoName) {
+    console.log('handleHeaderRepoNameChange run with state', repoName);
+    this.setState({
+      repoName
+    });
   }
 
   handleHeaderStateChange(issueState) {
@@ -47,22 +51,24 @@ export default class Main extends Component {
   }
 
   render() {
-    const {repoLink, pageIndex, issueState, issuesPerPage, pageTotal} = this.state;
+    const {repoName, pageIndex, issueState, issuesPerPage, pageTotal} = this.state;
 
     return (
       <div>
         <Header
           issueState={issueState}
-          onAction={this.handleHeaderStateChange}
+          repoName={repoName}
+          onStateChange={this.handleHeaderStateChange}
+          repoNameChange={this.handleHeaderRepoNameChange}
         />
         <Content
-          repoLink={repoLink}
+          repoName={repoName}
           issueState={issueState}
           pageIndex={pageIndex}
           issuesPerPage={issuesPerPage}
         />
         <Footer
-          pageTotal={pageTotal}
+          pageIndex={pageIndex}
           onAction={this.handleFooterPagenationChange}
         />
       </div>

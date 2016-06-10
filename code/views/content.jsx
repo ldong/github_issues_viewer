@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SingleView from './singleView.jsx';
+import ListView from './listView.jsx';
 
 export default class Content extends Component {
   constructor(props) {
@@ -10,8 +10,16 @@ export default class Content extends Component {
   }
 
   componentDidMount() {
-    const {repoLink, pageIndex, issuesPerPage, issueState} = this.props;
-    const url = `https://api.github.com/repos/${repoLink}/issues?page=${pageIndex}&per_page=${issuesPerPage}&state=${issueState}`;
+    this.fetchIssues(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.fetchIssues(nextProps);
+  }
+
+  fetchIssues(props) {
+    const {repoName, pageIndex, issuesPerPage, issueState} = props;
+    const url = `https://api.github.com/repos/${repoName}/issues?page=${pageIndex}&per_page=${issuesPerPage}&state=${issueState}`;
 
     fetch(url, {
       method: 'get'
@@ -37,7 +45,7 @@ export default class Content extends Component {
         let cls = index % 2 === 0 ? '': 'list-item-even';
 
         return (
-          <SingleView
+          <ListView
             key={index}
             className={`list-group-item ${cls}`}
             data={issue}
@@ -49,7 +57,6 @@ export default class Content extends Component {
 
     return (
       <div className="content">
-        <h1>rails/rails repo issues</h1>
         <ul className="list-group">
           {issues}
         </ul>

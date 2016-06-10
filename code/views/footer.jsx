@@ -8,47 +8,70 @@ export default class Footer extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {currentPageIndex: 1};
-    this.handleClick = this.handleClick.bind(this);
+    this.handlePrevPageClick = this.handlePrevPageClick.bind(this);
+    this.handleNextPageClick = this.handleNextPageClick.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  handleClick(e) {
+  handlePageChange(pageIndex) {
+    console.log('handlePageChange', pageIndex);
+    this.props.onAction(parseInt(pageIndex));
+  }
+
+  handlePrevPageClick(e) {
     e.preventDefault();
-    const pageIndex = e.target.textContent;
-    const currentPageIndex = parseInt(pageIndex);
+    const {pageIndex} = this.props;
+    this.handlePageChange(pageIndex-1);
+  }
 
-    this.setState({
-      currentPageIndex
-    });
-
-    this.props.onAction(currentPageIndex);
+  handleNextPageClick(e) {
+    e.preventDefault();
+    const {pageIndex} = this.props;
+    this.handlePageChange(pageIndex+1);
   }
 
   render() {
-    const {currentPageIndex} = this.state;
-    const {pageTotal} = this.props;
+    // const {currentPageIndex} = this.state;
+    const {pageIndex} = this.props;
 
-    const pages = Array.from(Array(pageTotal)).map((el, index)=> {
-      const pageIndex = index+1;
+    // const pages = Array.from(Array(pageTotal)).map((el, index)=> {
+    //   const pageIndex = index+1;
 
-      return (
-          <li
-            className={currentPageIndex === pageIndex ? 'active' : ''}
-            key={pageIndex}
-            onClick={this.handleClick}
-          >
-            <a href="#">{pageIndex}</a>
-          </li>
-        )
-    });
+    //   return (
+    //       <li
+    //         className={currentPageIndex === pageIndex ? 'active' : ''}
+    //         key={pageIndex}
+    //         onClick={this.handleClick}
+    //       >
+    //         <a href="#">{pageIndex}</a>
+    //       </li>
+    //     )
+    // });
 
+    const showPrevIndex = pageIndex > 1 ? true : false;
     return (
       <div className="footer">
         <div className="text-center">
           <ul className="pagination">
-            <li><a href="#">&lt;</a></li>
-            {pages}
-            <li><a href="#">&gt;</a></li>
+           {showPrevIndex && (
+              <li>
+                <a
+                  href="#"
+                  onClick={this.handlePrevPageClick}
+                >
+                  &lt;
+                </a>
+              </li>
+            )}
+            <li><a href="#">{pageIndex}</a></li>
+            <li>
+              <a
+                href="#"
+                onClick={this.handleNextPageClick}
+              >
+                &gt;
+              </a>
+            </li>
           </ul>
         </div>
       </div>
