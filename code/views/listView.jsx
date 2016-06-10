@@ -48,6 +48,7 @@ export default class ListView extends Component {
     });
 
     let message = body.length >= 140 ? body.substr(0, 140) : body;
+
     if (body.length >= 140) {
       message = body.substr(0, 140);
       if (/\s/.test(message[139])) {
@@ -55,6 +56,10 @@ export default class ListView extends Component {
         message = message.match(/.+\s/gm).join();
       }
     }
+
+    // Avoid issue pictures being cut off, i.e. <img> ...
+    message = message.replace('<', '&lt;');
+    message = message.replace('>', '&gt;');
 
     // Replace @username with wrapped anchor tag
     message = message.replace(/@(\w+)/g, '<a href="http://github.com/$1">@$1</a>');
