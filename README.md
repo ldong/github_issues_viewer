@@ -13,6 +13,10 @@ Demo: [Link](http://ldong.org/github_issues_viewer/)
 1. Implemented using React
 2. Used Bootstrap for CSS Styling and responsiveness. (Twitter Rocks)
 
+## Demo
+
+![](./screenshots/demo.gif)
+
 ## Thoughts
 By going over the [github developer APIs](https://developer.github.com/v3/issues/#list-issues-for-a-repository)
 
@@ -44,7 +48,7 @@ Without exhausting the browser client, implementing `Pagination` is essential.
 Limitation: no exact number of total issues, since Github API issues API does not officially support it.
 Embarrassingly like this:
 
-![](./screenshots/outage.png)
+![](./screenshots/api_outage.png)
 
 
 Workaround:

@@ -17,22 +17,23 @@ export default class Main extends Component {
       repoName: 'rails/rails',
       pageIndex: 1,
       issueState: 'open',
-      issuesPerPage: 25,
-      pageTotal: 10
+      issuesPerPage: 25
     };
   }
 
   handleHeaderRepoNameChange(repoName) {
     console.log('handleHeaderRepoNameChange run with state', repoName);
     this.setState({
-      repoName
+      repoName,
+      pageIndex: 1,
     });
   }
 
   handleHeaderStateChange(issueState) {
     console.log('handleHeaderStateChange run with state', issueState);
     this.setState({
-      issueState
+      issueState,
+      pageIndex: 1
     });
   }
 
@@ -51,7 +52,7 @@ export default class Main extends Component {
   }
 
   render() {
-    const {repoName, pageIndex, issueState, issuesPerPage, pageTotal} = this.state;
+    const {repoName, pageIndex, issueState, issuesPerPage} = this.state;
 
     return (
       <div>
