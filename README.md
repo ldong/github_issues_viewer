@@ -60,7 +60,9 @@ keeping track of which pageIndex, issue state, and repo's issues were browsed. B
 
 
 # Reference
-Used APIs
+
+Used APIs:
+
 1. https://api.github.com/repos/rails/rails/issues?page=1&per_page=1
 2. https://api.github.com/repos/rails/rails/issues?page=1&per_page=1&state=closed
 3. https://facebook.github.io/react/docs/component-specs.html
