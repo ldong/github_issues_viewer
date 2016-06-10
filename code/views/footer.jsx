@@ -14,7 +14,6 @@ export default class Footer extends Component {
   }
 
   handlePageChange(pageIndex) {
-    console.log('handlePageChange', pageIndex);
     this.props.onAction(parseInt(pageIndex));
   }
 

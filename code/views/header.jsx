@@ -28,7 +28,6 @@ export default class Header extends React.Component {
   handleEnterKeyPressed(e) {
     e.preventDefault();
     if (e.key === 'Enter') {
-      console.log('repoName', repoName);
       const repoName = this.repoInput.value;
       this.handleSearchRepo(repoName);
     }
@@ -36,7 +35,6 @@ export default class Header extends React.Component {
 
   handleSearchClick(e) {
     e.preventDefault();
-    console.log('handleSearchClick', this.repoInput.value);
     const repoName = this.repoInput.value;
     this.handleSearchRepo(repoName);
   }

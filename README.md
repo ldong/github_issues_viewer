@@ -1,13 +1,17 @@
 # README
 
-Author: Lin Dong
+Author: Alan(Lin Dong)
 
 Date: 6/10/2016
+
+Github: [Link](https://github.com/ldong/github_issues_viewer)
+
+Demo: [Link](http://ldong.org/github_issues_viewer/)
 
 ## Tech Stack
 
 1. Implemented using React
-2. Bootstrap were used for CSS Styling and responsiveness.
+2. Used Bootstrap for CSS Styling and responsiveness. (Twitter Rocks)
 
 ## Thoughts
 By going over the [github developer APIs](https://developer.github.com/v3/issues/#list-issues-for-a-repository)
@@ -15,7 +19,6 @@ By going over the [github developer APIs](https://developer.github.com/v3/issues
 I see that issues has 3 states: `open`, `closed`, or `all`.
 
 And the assignment asks to display only issues with `open` state, but I thought it would be nice to display in `all` state in backward chronological order.
-
 
 I also found the API supports pagination by passing `page` and `per_page` parameters. i.e. `https://api.github.com/user/repos?page=2&per_page=100`
 
@@ -50,8 +53,6 @@ Workaround:
 2. Visit issues page first, scrape out the last page number.
 
 I chose 1) since it makes sense and ethical.
-
-
 
 # Retrospect Notes
 
